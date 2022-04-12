@@ -9,15 +9,15 @@ document.querySelectorAll('nav a').forEach(link => link.addEventListener('mouseo
       }, 600);
     }
 ));
-// Task 2: ONSCROLL: On scroll, make the header transparent
+// Task 2: ONSCROLL: On scroll, make the header fade to 50%
 const headerNav = document.querySelector('.main-navigation');
 //this next line is new and I don't know why it works or why it's needed, came from https://codeconvey.com/navbar-transparent-to-solid-on-scroll/:
 window.onscroll = function() {headerFade()};
 function headerFade(){
     if (document.documentElement.scrollTop > 20) {
-        headerNav.style.background = "none";
+        headerNav.style.opacity = .5;
 } else {
-    headerNav.style.background = "#ffffff";
+    headerNav.style.opacity = 1;
       }
 }
 headerNav.addEventListener('onscroll', headerFade);
@@ -72,13 +72,21 @@ function windowSize(){
 }
 window.addEventListener('resize', windowSize);
 
-// Task 8: SELECT: Select some text, do something...
+// Task 8: SELECT: Create an input in HTML, then select text in it, then do something to that text. This is working but only because it's on MDN. I asked it to return the string in uppercase.
+const input = document.querySelector('input');
 
-document.querySelectorAll('p').forEach(text => text.addEventListener('select', doThis => {
-    doThis.target.style.background = 'yellow';
-    setTimeout(function() {
-        doThis.target.style.background = "";
-      }, 600);
-    }
-));
+function logSelection(event) {
+    const log = document.getElementById('log');
+    const selection = event.target.value.substring(event.target.selectionStart, event.target.selectionEnd);
+    log.textContent = `This is what you selected: ${selection.toUpperCase()}`;
+  }
+    
+  input.addEventListener('select', logSelection);
 
+// Task 9: DBLCLICK: make a picture flip when it's double clicked. OH, this is a cool one!
+
+document.querySelectorAll('img').forEach(picture => picture.addEventListener('dblclick', evt => {
+    evt.target.style.transform = 'scaleX(-1)';
+}));
+
+//Task 10: DRAG/DROP: 
